@@ -1,5 +1,5 @@
 name: cn-life
-version: 0.1.0
+version: 0.2.0
 description: "中国生活服务工具集：12306火车票查询、高德地图(POI/路线/天气)、余票监控推送。查询类免费无key(12306)；高德需免费key。所有交易类功能永不自动支付。"
 author: zhushou
 license: MIT
@@ -13,10 +13,18 @@ provides_tools:
   - cn_amap_poi
   - cn_amap_route
   - cn_amap_weather
+  - cn_mcd_stores
+  - cn_mcd_coupons
+  - cn_mcd_tools
 requires_env:
   - name: AMAP_KEY
     description: "高德开放平台免费key (https://console.amap.com) — 不填则高德三工具禁用, 12306不受影响"
     secret: false
+  - name: MCD_MCP_TOKEN
+    description: "麦当劳中国官方MCP Token (https://open.mcd.cn/mcp 手机号登录→控制台激活) — 不填则麦当劳三工具禁用"
+    secret: true
 config_schema:
   amap_key:
     {type: str, default: "", description: "高德key(也可用环境变量AMAP_KEY)"}
+  mcd_token:
+    {type: str, default: "", description: "麦当劳MCP Token(也可用环境变量MCD_MCP_TOKEN)", secret: true}

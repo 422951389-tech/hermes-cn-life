@@ -34,6 +34,53 @@ TRAIN_STATION = {
     },
 }
 
+MCD_STORES = {
+    "name": "cn_mcd_stores",
+    "description": (
+        "麦当劳门店查询：按城市找附近门店（支持外送/到店/得来速场景）。"
+        "用于'附近麦当劳''能送到XX吗'。需要用户已配置 MCD_MCP_TOKEN。"
+    ),
+    "parameters": {
+        "type": "object",
+        "properties": {
+            "city": {"type": "string", "description": "城市名"},
+            "keyword": {"type": "string", "description": "位置关键词（如'国贸'）"},
+            "search_type": {"type": "integer", "description": "1=外送查询 2=到店查询，默认1"},
+        },
+        "required": ["city"],
+    },
+}
+
+MCD_COUPONS = {
+    "name": "cn_mcd_coupons",
+    "description": (
+        "麦当劳优惠券：查我的券/一键领取所有可领的麦麦省券（action: list=查已有的, claim=一键领券）。"
+    ),
+    "parameters": {
+        "type": "object",
+        "properties": {
+            "action": {"type": "string", "description": "list 或 claim"},
+        },
+        "required": ["action"],
+    },
+}
+
+MCD_TOOLS = {
+    "name": "cn_mcd_tools",
+    "description": (
+        "诊断/进阶：列出麦当劳官方 MCP 服务端支持的全部工具（点餐/积分/订单等原始能力），"
+        "并可直接透传调用。用于插件未封装的高级场景。"
+    ),
+    "parameters": {
+        "type": "object",
+        "properties": {
+            "call": {"type": "string", "description": "可选：要调用的工具名（如 query-meals）"},
+            "args": {"type": "object", "description": "可选：调用参数 JSON"},
+        },
+        "required": [],
+    },
+}
+
 AMAP_POI = {
     "name": "cn_amap_poi",
     "description": "高德 POI 搜索：找地点/商家/景点（'附近的麦当劳''西湖停车场'）。返回名称+地址+坐标+距离。",
