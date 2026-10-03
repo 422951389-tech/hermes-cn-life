@@ -24,7 +24,8 @@ def cn_train_query(args: dict, **kwargs) -> str:
     try:
         r = rail.query_tickets(
             args.get("from", ""), args.get("to", ""), args.get("date", ""),
-            only_gaotie=bool(args.get("only_gaotie", False)))
+            only_gaotie=bool(args.get("only_gaotie", False)),
+            sort_by=args.get("sort_by", "time"))
         return json.dumps(r, ensure_ascii=False)
     except Exception as e:
         return json.dumps({"ok": False, "error": f"12306查询失败: {e}"}, ensure_ascii=False)
@@ -103,7 +104,13 @@ def cn_mcd_tools(args: dict, **kwargs) -> str:
 
 def cn_express_track(args: dict, **kwargs) -> str:
     try:
-        r = express.track(args.get("number", "").strip(), args.get("company"))
+        numbers = args.get("numbers")
+        if not numbers and isinstance(args.get("number"), list):
+            numbers = args["number"]
+        if numbers:
+            r = express.track_many(numbers)
+        else:
+            r = express.track(str(args.get("number", "")).strip(), args.get("company"))
         return json.dumps(r, ensure_ascii=False)
     except Exception as e:
         return json.dumps({"ok": False, "error": f"快递查询失败: {e}"}, ensure_ascii=False)

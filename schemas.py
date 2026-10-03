@@ -16,7 +16,7 @@ TRAIN_QUERY = {
             "to": {"type": "string", "description": "到达站中文名，如 '上海虹桥'"},
             "date": {"type": "string", "description": "乘车日期 YYYY-MM-DD"},
             "only_gaotie": {"type": "boolean", "description": "只看高铁/动车 (G/D字头)，默认 false"},
-            "transfer": {"type": "boolean", "description": "查询一次中转方案（慢，默认 false）"},
+            "sort_by": {"type": "string", "description": "time=按发车时间(默认)；duration=按历时最短优先（赶时间用）"},
         },
         "required": ["from", "to", "date"],
     },
@@ -91,10 +91,11 @@ EXPRESS_TRACK = {
     "parameters": {
         "type": "object",
         "properties": {
-            "number": {"type": "string", "description": "快递单号"},
+            "number": {"type": "string", "description": "快递单号；批量查就给数组（最多10单）"},
+            "numbers": {"type": "array", "items": {"type": "string"}, "description": "批量模式：单号数组（优先于 number）"},
             "company": {"type": "string", "description": "可选：快递公司名（不给则自动识别）"},
         },
-        "required": ["number"],
+        "required": [],
     },
 }
 

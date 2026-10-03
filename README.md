@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-让 Hermes Agent 接入中国互联网生活服务：**火车票查询、地图/POI/路线/天气**。
+让 Hermes Agent 接入中国互联网生活服务：**火车票查询、快递物流、地图/POI/路线/天气、麦当劳官方点餐**。
 人在外面发条消息（QQ/Telegram/微信/任何 Hermes 支持的 20+ 平台），家里的 Agent 帮你查。
 
 ## 设计原则
@@ -15,20 +15,20 @@
 
 ```bash
 # 方式一: 目录安装 (当前)
-git clone https://github.com/yourname/cn-life ~/.hermes/plugins/cn-life
+git clone https://github.com/422951389-tech/hermes-cn-life ~/.hermes/plugins/cn-life
 hermes plugins enable cn-life
 
 # 方式二: 待发布到目录后
-hermes plugins install yourname/cn-life
+hermes plugins install 422951389-tech/hermes-cn-life
 ```
 
 ## 模块
 
 | 工具 | 功能 | 依赖 |
 |---|---|---|
-| `cn_train_query` | 12306 余票/车次/座位/票价 | 无（纯HTTP+cookie） |
+| `cn_train_query` | 12306 余票/车次/座位/票价（支持按发车时间/历时最短排序） | 无（纯HTTP+cookie） |
 | `cn_train_station` | 站名模糊解析（中文/拼音/缩写） | 无 |
-| `cn_express_track` | 快递物流查询（自动识别公司+轨迹） | 无（快递100免key公开接口） |
+| `cn_express_track` | 快递物流查询（自动识别公司+轨迹，支持批量≤10单） | 无（快递100免key公开接口） |
 | `cn_mcd_stores` | 麦当劳门店查询 | MCD_MCP_TOKEN |
 | `cn_mcd_coupons` | 麦当劳优惠券（查/一键领） | MCD_MCP_TOKEN |
 | `cn_mcd_tools` | 麦当劳全工具透传（点餐/积分/订单） | MCD_MCP_TOKEN |

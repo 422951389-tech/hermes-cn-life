@@ -94,7 +94,7 @@ def resolve_station(name):
     return None, None
 
 
-def query_tickets(from_cn, to_cn, date, only_gaotie=False):
+def query_tickets(from_cn, to_cn, date, only_gaotie=False, sort_by="time"):
     fcode, fname = resolve_station(from_cn)
     tcode, tname = resolve_station(to_cn)
     if not fcode:
@@ -152,6 +152,13 @@ def query_tickets(from_cn, to_cn, date, only_gaotie=False):
             "出发站": cn_by_code.get(p[6], p[6]), "到达站": cn_by_code.get(p[7], p[7]),
             "可订": p[11] == "Y", "余票": seats,
         })
-    trains.sort(key=lambda t: t["发车"])
+    # 排序：time=发车时间（默认） | duration=历时最短优先
+    if sort_by == "duration":
+        def _mins(t):
+            m = re.match(r"(\d+):(\d+)", t.get("历时", "").replace("：", ":"))
+            return int(m.group(1)) * 60 + int(m.group(2)) if m else 99999
+        trains.sort(key=_mins)
+    else:
+        trains.sort(key=lambda t: t["发车"])
     return {"ok": True, "from": fname, "to": tname, "date": date,
             "count": len(trains), "trains": trains[:60]}

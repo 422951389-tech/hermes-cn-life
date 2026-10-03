@@ -30,7 +30,7 @@ COMPANY_FIX = {
     "sto": "申通快递", "yunda": "韵达快递", "jd": "京东物流",
     "debangkuaidi": "德邦快递", "ems": "EMS", "youzhengguonei": "邮政包裹",
     "huitongkuaidi": "百世快递", "jijiexpress": "极兔速递", "jtexpress": "极兔速递", "shentong": "申通快递",
-    "zhongtong": "中通快递", "yuantong": "圆通速递", "yun达": "韵达快递",
+    "zhongtong": "中通快递", "yuantong": "圆通速递",
 }
 
 
@@ -70,3 +70,21 @@ def track(num, company=None):
     return {"ok": True, "单号": num, "快递": cname or company,
             "状态": state_map.get(d.get("state", ""), d.get("state")),
             "轨迹": trail}
+
+
+def track_many(numbers):
+    """批量查（最多 10 单，免key限频，每单间隔 0.8s）。"""
+    out = []
+    nums = [n.strip() for n in numbers if str(n).strip()][:10]
+    for n in nums:
+        try:
+            r = track(n)
+        except Exception as e:
+            r = {"ok": False, "error": str(e)}
+        # 批量时轨迹只留最新 3 条，省 token
+        if r.get("ok") and r.get("轨迹"):
+            r["轨迹"] = r["轨迹"][:3]
+        out.append({"单号": n, **r})
+        time.sleep(0.8)
+    ok_n = sum(1 for x in out if x.get("ok"))
+    return {"ok": ok_n > 0, "总数": len(nums), "成功": ok_n, "结果": out}
