@@ -6,6 +6,7 @@ import os
 from . import rail
 from . import amap as amap_mod
 from . import mcd
+from . import express
 
 
 def _key(**kwargs):
@@ -98,3 +99,11 @@ def cn_mcd_tools(args: dict, **kwargs) -> str:
         return json.dumps(r, ensure_ascii=False)[:6000]
     except Exception as e:
         return json.dumps({"ok": False, "error": f"麦当劳MCP调用失败: {e}"}, ensure_ascii=False)
+
+
+def cn_express_track(args: dict, **kwargs) -> str:
+    try:
+        r = express.track(args.get("number", "").strip(), args.get("company"))
+        return json.dumps(r, ensure_ascii=False)
+    except Exception as e:
+        return json.dumps({"ok": False, "error": f"快递查询失败: {e}"}, ensure_ascii=False)

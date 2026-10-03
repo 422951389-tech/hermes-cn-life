@@ -81,6 +81,23 @@ MCD_TOOLS = {
     },
 }
 
+EXPRESS_TRACK = {
+    "name": "cn_express_track",
+    "description": (
+        "快递物流查询：输入快递单号，自动识别快递公司（顺丰/三通一达/京东/EMS/极兔等），"
+        "返回当前状态（运输中/派送中/已签收）和完整物流轨迹。"
+        "用于'我的快递到哪了'。免key。"
+    ),
+    "parameters": {
+        "type": "object",
+        "properties": {
+            "number": {"type": "string", "description": "快递单号"},
+            "company": {"type": "string", "description": "可选：快递公司名（不给则自动识别）"},
+        },
+        "required": ["number"],
+    },
+}
+
 AMAP_POI = {
     "name": "cn_amap_poi",
     "description": "高德 POI 搜索：找地点/商家/景点（'附近的麦当劳''西湖停车场'）。返回名称+地址+坐标+距离。",

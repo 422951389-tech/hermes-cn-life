@@ -16,6 +16,7 @@ provides_tools:
   - cn_mcd_stores
   - cn_mcd_coupons
   - cn_mcd_tools
+  - cn_express_track
 requires_env:
   - name: AMAP_KEY
     description: "高德开放平台免费key (https://console.amap.com) — 不填则高德三工具禁用, 12306不受影响"

@@ -27,4 +27,6 @@ def register(ctx):
                       schema=schemas.MCD_COUPONS, handler=tools.cn_mcd_coupons)
     ctx.register_tool(name="cn_mcd_tools", toolset="cnlife",
                       schema=schemas.MCD_TOOLS, handler=tools.cn_mcd_tools)
-    logger.info("cn-life registered: 2 rail + 3 amap + 3 mcd tools")
+    ctx.register_tool(name="cn_express_track", toolset="cnlife",
+                      schema=schemas.EXPRESS_TRACK, handler=tools.cn_express_track)
+    logger.info("cn-life registered: 2 rail + 3 amap + 3 mcd + 1 express tools")
