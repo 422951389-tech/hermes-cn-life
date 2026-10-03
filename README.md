@@ -1,0 +1,62 @@
+# cn-life — 中国生活服务插件 for Hermes Agent
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
+让 Hermes Agent 接入中国互联网生活服务：**火车票查询、地图/POI/路线/天气**。
+人在外面发条消息（QQ/Telegram/微信/任何 Hermes 支持的 20+ 平台），家里的 Agent 帮你查。
+
+## 设计原则
+
+1. **平台无关** — 工具返回纯 JSON，不绑定任何聊天平台，QQ/Telegram/微信通用
+2. **永不碰钱** — 插件只做查询和规划；任何交易只推进到「给用户链接/二维码，用户手机扫码支付」
+3. **渐进配置** — 12306 零配置开箱即用；高德填个免费 key 解锁；不填也不影响别的模块
+
+## 安装
+
+```bash
+# 方式一: 目录安装 (当前)
+git clone https://github.com/yourname/cn-life ~/.hermes/plugins/cn-life
+hermes plugins enable cn-life
+
+# 方式二: 待发布到目录后
+hermes plugins install yourname/cn-life
+```
+
+## 模块
+
+| 工具 | 功能 | 依赖 |
+|---|---|---|
+| `cn_train_query` | 12306 余票/车次/座位/票价 | 无（纯HTTP+cookie） |
+| `cn_train_station` | 站名模糊解析（中文/拼音/缩写） | 无 |
+| `cn_amap_poi` | POI 搜索（找店/景点/停车场） | AMAP_KEY |
+| `cn_amap_route` | 驾车/步行/公交/骑行路线 | AMAP_KEY |
+| `cn_amap_weather` | 城市天气预报 | AMAP_KEY |
+
+### 高德 key（免费）
+
+到 [console.amap.com](https://console.amap.com) 注册 → 创建应用 → 添加 Key（服务类型选 **Web服务**）：
+```bash
+export AMAP_KEY="你的key"   # 或写进 plugins.entries.cn-life.settings.amap_key
+```
+
+## 使用示例
+
+> 帮我查下周六北京南到上海虹桥的高铁，下午出发的
+> 附近有什么好吃的川菜馆？（配城市/位置）
+> 明天杭州天气怎么样，适合骑行吗？
+
+## Roadmap
+
+- [ ] v0.2 电影档期（猫眼/淘票票页面解析）
+- [ ] v0.2 机票查询（飞常准/航旅纵横接口）
+- [ ] v0.3 余票监控 cron（放票提醒推送到聊天平台）
+- [ ] v0.4 外卖/购物比价（浏览器自动化，只到购物车，支付留给人）
+
+## 致谢
+
+- 12306 接口字段整理参考 [Joooook/12306-mcp](https://github.com/Joooook/12306-mcp) (MIT)
+- 高德开放平台官方 API
+
+## License
+
+MIT
