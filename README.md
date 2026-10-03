@@ -28,6 +28,10 @@ hermes plugins install yourname/cn-life
 |---|---|---|
 | `cn_train_query` | 12306 余票/车次/座位/票价 | 无（纯HTTP+cookie） |
 | `cn_train_station` | 站名模糊解析（中文/拼音/缩写） | 无 |
+| `cn_express_track` | 快递物流查询（自动识别公司+轨迹） | 无（快递100免key公开接口） |
+| `cn_mcd_stores` | 麦当劳门店查询 | MCD_MCP_TOKEN |
+| `cn_mcd_coupons` | 麦当劳优惠券（查/一键领） | MCD_MCP_TOKEN |
+| `cn_mcd_tools` | 麦当劳全工具透传（点餐/积分/订单） | MCD_MCP_TOKEN |
 | `cn_amap_poi` | POI 搜索（找店/景点/停车场） | AMAP_KEY |
 | `cn_amap_route` | 驾车/步行/公交/骑行路线 | AMAP_KEY |
 | `cn_amap_weather` | 城市天气预报 | AMAP_KEY |
