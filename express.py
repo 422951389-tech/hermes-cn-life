@@ -29,7 +29,7 @@ COMPANY_FIX = {
     "shunfeng": "顺丰速运", "yto": "圆通速递", "zto": "中通快递",
     "sto": "申通快递", "yunda": "韵达快递", "jd": "京东物流",
     "debangkuaidi": "德邦快递", "ems": "EMS", "youzhengguonei": "邮政包裹",
-    "huitongkuaidi": "百世快递", "jijiexpress": "极兔速递", "shentong": "申通快递",
+    "huitongkuaidi": "百世快递", "jijiexpress": "极兔速递", "jtexpress": "极兔速递", "shentong": "申通快递",
     "zhongtong": "中通快递", "yuantong": "圆通速递", "yun达": "韵达快递",
 }
 
@@ -63,6 +63,8 @@ def track(num, company=None):
         return {"ok": False, "error": f"查询失败: {d.get('message', '未知错误')}（免费接口限频可稍后再试）"}
     trail = [{"时间": t.get("ftime"), "事件": t.get("context")}
              for t in (d.get("data") or [])[:20]]
+    if trail and all("查无结果" in (x["事件"] or "") for x in trail):
+        return {"ok": False, "error": "接口通了但查无此单（单号错或刚揽收未入网），稍后再试"}
     state_map = {"0": "运输中", "1": "揽收", "2": "疑难", "3": "已签收",
                  "4": "退签", "5": "派送中", "6": "退回", "7": "转投", "8": "清关"}
     return {"ok": True, "单号": num, "快递": cname or company,
